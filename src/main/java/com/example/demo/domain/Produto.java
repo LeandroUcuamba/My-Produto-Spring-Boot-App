@@ -9,18 +9,18 @@ import jakarta.persistence.Table;
 public class Produto {
 
     @Id
-    private String id;
+    private String sku;
     private String nome;
     private String descricao;
     private Double valor;
     private Integer quantidade;
 
-    public String getId() {
-        return id;
+    public String getSku() {
+        return sku;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public String getNome() {
