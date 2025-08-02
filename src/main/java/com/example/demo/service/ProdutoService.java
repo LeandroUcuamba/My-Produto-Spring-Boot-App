@@ -11,6 +11,7 @@ import java.util.List;
 public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
+
     public List<Produto> listaTodos() {
         return (List<Produto>) repository.findAll();
     }

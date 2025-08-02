@@ -3,24 +3,27 @@ package com.example.demo.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
-@Entity
 @Table(name = "produto")
+@Entity
 public class Produto {
 
     @Id
-    private String sku;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String nome;
     private String descricao;
     private Double valor;
     private Integer quantidade;
 
-    public String getSku() {
-        return sku;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
