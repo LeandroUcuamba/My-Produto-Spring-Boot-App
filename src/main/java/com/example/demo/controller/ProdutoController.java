@@ -3,9 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.domain.Produto;
 import com.example.demo.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/produto")
@@ -15,28 +18,38 @@ public class ProdutoController {
     private ProdutoService service;
 
     @GetMapping
-    public List<Produto> listarTodos(){
-        return service.listaTodos();
+    public ResponseEntity<List<Produto>> listarTodos(){
+        List<Produto> produtos = service.listaTodos();
+        return ResponseEntity.ok(produtos);
     }
 
     @GetMapping("/{id}")
-    public Produto buscarPorId(@PathVariable String id){
-        return service.buscarPorId(id);
+    public ResponseEntity<Produto> buscarPorId(@PathVariable String id){
+        Optional<Produto> optProduto = service.buscarPorId(id);
+
+        if(optProduto.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(optProduto.get());
     }
 
     @PostMapping
-    public Produto salvar(@RequestBody Produto produto){
-        return service.salvar(produto);
+    public ResponseEntity<Produto> salvar(@RequestBody Produto produto){
+        Produto novoProduto = service.salvar(produto);
+        return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public Produto alterar(@RequestBody Produto produto){
-        return service.salvar(produto);
+    public ResponseEntity<Produto> alterar(@RequestBody Produto produto){
+        Produto produtoAlterado = service.salvar(produto);
+        return ResponseEntity.ok(produtoAlterado);
     }
 
     @DeleteMapping("/{id}")
-    public void  delete(@PathVariable String id){
+    public ResponseEntity<Void> delete(@PathVariable String id){
         service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
