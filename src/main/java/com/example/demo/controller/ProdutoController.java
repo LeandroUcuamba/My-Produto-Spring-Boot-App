@@ -29,6 +29,11 @@ public class ProdutoController {
         return service.salvar(produto);
     }
 
+    @PutMapping
+    public Produto alterar(@RequestBody Produto produto){
+        return service.salvar(produto);
+    }
+
     @DeleteMapping("/{id}")
     public void  delete(@PathVariable String id){
         service.delete(id);
