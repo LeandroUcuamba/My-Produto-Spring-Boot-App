@@ -19,9 +19,19 @@ public class ProdutoController {
         return service.listaTodos();
     }
 
+    @GetMapping("/{id}")
+    public Produto buscarPorId(@PathVariable String id){
+        return service.buscarPorId(id);
+    }
+
     @PostMapping
     public Produto salvar(@RequestBody Produto produto){
         return service.salvar(produto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void  delete(@PathVariable String id){
+        service.delete(id);
     }
 
 }
